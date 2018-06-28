@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movies View Controller-->
+        <!--Movies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MoviesViewController" sceneMemberID="viewController">
@@ -56,6 +56,7 @@
                                             <outlet property="posterImageView" destination="qAW-R6-Yru" id="oom-os-VLv"/>
                                             <outlet property="synopsisTitle" destination="9Ox-Da-ZON" id="CkR-c8-2zE"/>
                                             <outlet property="titleLabel" destination="yZ1-AE-KBg" id="LRa-dN-fxI"/>
+                                            <segue destination="V8m-Fv-dpY" kind="show" id="cpU-NM-xDD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -64,7 +65,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7Tv-ql-Vym"/>
+                    <navigationItem key="navigationItem" title="Movies" id="7Tv-ql-Vym"/>
                     <connections>
                         <outlet property="tableView" destination="xHE-ap-l57" id="nY0-A0-64z"/>
                     </connections>
@@ -72,6 +73,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="972" y="33.733133433283363"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="p2P-OL-e7V">
+            <objects>
+                <viewController id="V8m-Fv-dpY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wmQ-Q9-7ie">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="odC-kr-QYg"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ULH-tm-KTd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1772" y="34"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zCe-aL-nEj">
