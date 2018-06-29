@@ -24,6 +24,14 @@
     self.superheroCollectionView.delegate = self;
     
     [self fetchMovies];
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.superheroCollectionView.collectionViewLayout;
+    layout.minimumInteritemSpacing = 5;
+    layout.minimumLineSpacing = 5;
+    CGFloat itemsPerLine = 2;
+    CGFloat itemWidth = (self.superheroCollectionView.frame.size.width - layout.minimumInteritemSpacing * (itemsPerLine - 1)) / itemsPerLine;
+    CGFloat itemHeight = itemWidth * 1.5;
+    layout.itemSize = CGSizeMake(itemWidth, itemHeight);
 }
 
 - (void)fetchMovies {
