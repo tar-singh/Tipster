@@ -37,6 +37,25 @@
     
 }
 
+- (void)addAlertController {
+    // make alert controller
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Cannot get movies" message:@"Check your network connection and try again." preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    // add try again button
+    UIAlertAction *tryAction = [UIAlertAction actionWithTitle:@"Try again" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // handle try again response here. doing nothing will dismiss view.
+        [self fetchMovies];
+    }];
+    
+    // add try again action to alertController
+    [alert addAction:tryAction];
+    
+    // shows the alert controller
+    [self presentViewController:alert animated:YES completion:^{
+        // optional code for what happens after the alert controller has finished presenting
+    }];
+};
+
 - (void)fetchMovies {
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -44,6 +63,9 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
+            
+            // give alert saying that network connection is not working
+            [self addAlertController];
         }
         else {
             NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
