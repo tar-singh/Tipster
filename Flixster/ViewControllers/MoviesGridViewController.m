@@ -9,6 +9,7 @@
 #import "MoviesGridViewController.h"
 #import "MoviesCollectionCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "SegueDetailsViewController.h"
 
 @interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *superheroCollectionView;
@@ -35,7 +36,8 @@
 }
 
 - (void)fetchMovies {
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
+    // where "297762" is the Wonder Woman id
+    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/297762/similar?api_key=05f54c7a849a59aebe449f7ce850bddf"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -59,15 +61,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    UICollectionViewCell *tappedCell = sender;
+    NSIndexPath *tappedIndexPath = [self.superheroCollectionView indexPathForCell:tappedCell];
+    NSDictionary *movie = self.movies[tappedIndexPath.item];
+    
+    SegueDetailsViewController *segueDetailsViewController = [segue destinationViewController];
+    segueDetailsViewController.movie = movie;
 }
-*/
+
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MoviesCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoviesCollectionCell" forIndexPath:indexPath];

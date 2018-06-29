@@ -223,7 +223,7 @@
             </objects>
             <point key="canvasLocation" x="212" y="806"/>
         </scene>
-        <!--Movies Grid View Controller-->
+        <!--Superhero-->
         <scene sceneID="ANZ-ry-BYr">
             <objects>
                 <viewController id="yCn-af-Vdu" customClass="MoviesGridViewController" sceneMemberID="viewController">
@@ -257,6 +257,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="posterView" destination="e21-Nt-tvJ" id="QhE-YB-x2c"/>
+                                            <segue destination="V8m-Fv-dpY" kind="show" id="hfb-NK-ywE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -265,7 +266,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="NuP-2c-epo"/>
                     </view>
-                    <navigationItem key="navigationItem" id="rf0-g3-wxe"/>
+                    <navigationItem key="navigationItem" title="Superhero" id="rf0-g3-wxe"/>
                     <connections>
                         <outlet property="superheroCollectionView" destination="2dc-Wf-Vdm" id="uX6-GK-CWe"/>
                     </connections>
@@ -279,4 +280,7 @@
         <image name="now_playing_tabbar_item" width="21" height="21"/>
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hfb-NK-ywE"/>
+    </inferredMetricsTieBreakers>
 </document>
