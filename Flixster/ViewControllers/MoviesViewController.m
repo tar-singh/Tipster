@@ -13,6 +13,7 @@
 
 @interface MoviesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *pageLoadView;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @end
@@ -24,6 +25,9 @@
     // Do any additional setup after loading the view.
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    // Start the activity indicator
+    [self.pageLoadView startAnimating];
     
     [self fetchMovies];
     
@@ -59,6 +63,10 @@
             [self.tableView reloadData];
         }
         [self.refreshControl endRefreshing];
+        
+        // Stop the activity indicator
+        // Hides automatically if "Hides When Stopped" is enabled
+        [self.pageLoadView stopAnimating];
     }];
     [task resume];
 }
