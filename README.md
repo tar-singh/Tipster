@@ -1,5 +1,5 @@
 # Project 2 - *Flixster*
-***Tipster is name of Git repo, Flixster is name of app***
+***Tipster is name of Git repo, Flixster is name of app.***
 
 **Flixster** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
