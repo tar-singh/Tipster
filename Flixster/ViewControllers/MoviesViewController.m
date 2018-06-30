@@ -80,10 +80,6 @@
             self.movies = dataDictionary[@"results"];
             self.filteredMovies = self.movies;
             
-            for(NSDictionary *movie in self.movies)
-            {
-                NSLog(@"%@", movie[@"title"]);
-            }
             
             // Reload your table view data
             [self.tableView reloadData];
@@ -147,7 +143,7 @@
     // Pass the selected object to the new view controller.
     UITableViewCell *tappedCell = sender;
     NSIndexPath *tappedIndexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[tappedIndexPath.row];
+    NSDictionary *movie = self.filteredMovies[tappedIndexPath.row];
     
     SegueDetailsViewController *segueDetailsViewController = [segue destinationViewController];
     segueDetailsViewController.movie = movie;

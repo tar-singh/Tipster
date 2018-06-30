@@ -14,6 +14,8 @@
 @interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *superheroCollectionView;
 @property (nonatomic, strong) NSArray *movies;
+@property (strong, nonatomic) NSArray *filteredMovies;
+@property (weak, nonatomic) IBOutlet UISearchBar *superSearchBar;
 @end
 
 @implementation MoviesGridViewController
@@ -23,6 +25,7 @@
     // Do any additional setup after loading the view.
     self.superheroCollectionView.dataSource = self;
     self.superheroCollectionView.delegate = self;
+    self.superSearchBar.delegate = self;
     
     [self fetchMovies];
     
@@ -50,6 +53,7 @@
             // Get the array of movies
             // Store the movies in a property to use elsewhere
             self.movies = dataDictionary[@"results"];
+            self.filteredMovies = self.movies;
             [self.superheroCollectionView reloadData];
         }
     }];
@@ -70,7 +74,7 @@
     // Pass the selected object to the new view controller.
     UICollectionViewCell *tappedCell = sender;
     NSIndexPath *tappedIndexPath = [self.superheroCollectionView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[tappedIndexPath.item];
+    NSDictionary *movie = self.filteredMovies[tappedIndexPath.item];
     
     SegueDetailsViewController *segueDetailsViewController = [segue destinationViewController];
     segueDetailsViewController.movie = movie;
@@ -80,7 +84,7 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     MoviesCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MoviesCollectionCell" forIndexPath:indexPath];
     
-    NSDictionary *movie = self.movies[indexPath.item];
+    NSDictionary *movie = self.filteredMovies[indexPath.item];
     
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = movie[@"poster_path"];
@@ -93,7 +97,23 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.movies.count;
+    return self.filteredMovies.count;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    if (searchText.length != 0) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchText];
+        self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
+        
+        NSLog(@"%@", self.filteredMovies);
+    }
+    else {
+        self.filteredMovies = self.movies;
+    }
+    
+    [self.superheroCollectionView reloadData];
+    
 }
 
 @end
