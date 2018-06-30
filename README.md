@@ -44,7 +44,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+*Describe any challenges encountered while building the app.*
 
 The biggest challenge I faced was implementing the additional feature, about tapping anywhere on the screen to hide the search bar keyboard, of which I go into further detail above. Not only did I have to keep track of if the search bar was being typed into when the screen was tapped, but also how to do a segue into the more detailed view of the movies when the search bar wasn't being typed into. I put this in an if/else statement, and it was easy to implement either the if or the else, but not both. It was also a challenge figuring out where I should put the touch gesture (on the cell, in the entire view, etc.) and how to figure out which cell was tapped. Eventually, I used a function that I did not even know existed, in which the segue will only be called under certain conditions (such as if the search bar is in use or not), and that kept things simple and clean. 
 
