@@ -119,7 +119,6 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
     if (searchText.length != 0) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchText];
         self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
@@ -134,9 +133,21 @@
     
 }
 
+// if search bar is being used, don't do segue -> just hide keyboard
+// if search bar is not being used (keyboard is hid) -> do segue
+#pragma mark - Navigation
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if (self.movieSearchBar.isFirstResponder) {
+        [self.movieSearchBar resignFirstResponder];
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
 
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].

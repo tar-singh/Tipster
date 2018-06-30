@@ -11,7 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "SegueDetailsViewController.h"
 
-@interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *superheroCollectionView;
 @property (nonatomic, strong) NSArray *movies;
 @property (strong, nonatomic) NSArray *filteredMovies;
@@ -26,7 +26,7 @@
     self.superheroCollectionView.dataSource = self;
     self.superheroCollectionView.delegate = self;
     self.superSearchBar.delegate = self;
-    
+
     [self fetchMovies];
     
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) self.superheroCollectionView.collectionViewLayout;
@@ -65,8 +65,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+// if search bar is being used, don't do segue -> just hide keyboard
+// if search bar is not being used (keyboard is hid) -> do segue
 #pragma mark - Navigation
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if (self.superSearchBar.isFirstResponder) {
+        [self.superSearchBar resignFirstResponder];
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -101,7 +110,6 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
     if (searchText.length != 0) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchText];
         self.filteredMovies = [self.movies filteredArrayUsingPredicate:predicate];
